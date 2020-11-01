@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8de2687b-6db1-4927-bf65-3882feccb8d0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/LambConfigDocument.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/AppSettingsJsonProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/CachedConfigProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/DynamoDBProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/LocalConfigFileProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Extension/UseLocalConfigFileExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Utility.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/OperationResult.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Extension/UseCacheExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Extension/UseDynamoDBExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/ConfigDocument.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/MappedConfigItem.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/BuilderExtensions/UseCacheExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/BuilderExtensions/UseLocalConfigFileExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/BuilderExtensions/UseDynamoDBExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/BuilderExtensions/UseLocalFileExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/BuilderExtensions/UseAwsProfileExtension.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/NetworkConfigItem.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/ServiceRegistryEntry.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/LambConfiguration.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/ConfigBuilder.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/ConfigProviders/IConfigProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/ConfigProviders/DynamoDBProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/ConfigProviders/LocalJsonFileProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/ConfigProviders/FileCacheProvider.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/ElasticSearchConfigItem.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/ElasticSearchDomainConfigItem.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/SettingsKeys.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/ConstEnum.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Constants.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/LambConfigDocument.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/LambdaConfigItem.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/LambdaEventTypeEnum.cs" />
+        <option value="$PROJECT_DIR$/Surly.LambConfig.Lib/Model/LambdaEventConfigItem.cs" />
+        <option value="$PROJECT_DIR$/Test.LambConfig/UnitTest1.cs" />
+        <option value="$PROJECT_DIR$/Test.LambConfig/BasicUsageExample.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1jeTkNLzIGRVs6aLOsNCYsVUVru" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="false" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8de2687b-6db1-4927-bf65-3882feccb8d0" name="Default Changelist" comment="" />
+      <created>1604163702517</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604163702517</updated>
+      <workItem from="1604163712507" duration="1935000" />
+      <workItem from="1604202477420" duration="17785000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="340" y="178" key="Rider.ProjectTemplateDialog.Size" timestamp="1604262898563">
+      <screen x="0" y="23" width="1680" height="958" />
+    </state>
+    <state x="340" y="178" key="Rider.ProjectTemplateDialog.Size/0.23.1680.958@0.23.1680.958" timestamp="1604262898563" />
+    <state x="611" y="146" key="RiderGenerateDialog" timestamp="1604243409171">
+      <screen x="0" y="23" width="1680" height="958" />
+    </state>
+    <state x="611" y="146" key="RiderGenerateDialog/0.23.1680.958@0.23.1680.958" timestamp="1604243409171" />
+    <state x="239" y="53" key="SettingsEditor" timestamp="1604242433892">
+      <screen x="0" y="23" width="1680" height="958" />
+    </state>
+    <state x="239" y="53" key="SettingsEditor/0.23.1680.958@0.23.1680.958" timestamp="1604242433892" />
+    <state x="419" y="23" width="840" height="1034" key="search.everywhere.popup" timestamp="1604260157584">
+      <screen x="0" y="23" width="1680" height="958" />
+    </state>
+    <state x="419" y="23" width="840" height="1034" key="search.everywhere.popup/0.23.1680.958@0.23.1680.958" timestamp="1604260157584" />
+  </component>
+</project>
