@@ -3,6 +3,11 @@ using System.Linq;
 
 namespace Surly.LambConfig
 {
+    /// <summary>
+    /// This is the official configuration object. The data that is specific to our Lambda/AWS environment
+    /// is in the DynamoTables, ServiceRegistryEntries, Lambdas etc dictionaries. The Settings
+    /// dictionary contains things like environment variables and other basic config settings.
+    /// </summary>
    public class LambConfigDocument
     {
         public Dictionary<string, string> Settings { get; } = new Dictionary<string, string>();

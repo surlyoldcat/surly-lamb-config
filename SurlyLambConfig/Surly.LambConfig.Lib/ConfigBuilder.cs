@@ -5,18 +5,20 @@ namespace Surly.LambConfig
 {
     public class ConfigBuilder
     {
-        private LambConfigDocument Config { get; set; }
-        private bool EnableCache { get; set; }
+        //this is internal to allow it to be accessed by extension methods, might be unnecessary
+        internal readonly LambConfigDocument _configInternal;
+
+        private bool _enableCache;
         
         public ConfigBuilder()
         {
-            EnableCache = false;
+            _configInternal = new LambConfigDocument();
+            _enableCache = false;
         }
         
         public LambConfigDocument Build()
         {
-            //TODO add a delegate to allow consumer to validate config?   
-            LambConfiguration.InitConfig(Config);
+            LambConfiguration.InitConfig(_configInternal);
             return LambConfiguration.Config;
         }
 
@@ -47,7 +49,7 @@ namespace Surly.LambConfig
         
         public ConfigBuilder EnableCaching()
         {
-            EnableCache = true;
+            _enableCache = true;
             return this;
         }
 

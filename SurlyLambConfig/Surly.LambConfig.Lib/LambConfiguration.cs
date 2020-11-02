@@ -5,7 +5,8 @@ namespace Surly.LambConfig
 {
     /// <summary>
     /// This class is used by consumer code to access the loaded configuration.
-    /// Config gets populated from ConfigBuilder.
+    /// Config gets populated from ConfigBuilder. Note, the config document
+    /// is treated as a singleton, and is readonly once initialized.
     /// </summary>
     public static class LambConfiguration
     {
