@@ -4,9 +4,13 @@ namespace Surly.LambConfig
 {
     public class ServiceRegistryEntry 
     {
-        public string ServiceName { get; set; }
-        public string Version { get; set; }
-        public string HashPepper { get; set; }
+        public virtual string Service { get; set; }
+        public virtual string Version { get; set; }
+        public virtual string Status { get; set; }
+        public virtual string Url { get; set; }
+        public virtual string Port { get; set; }
+        public virtual string Stage { get; set; }
+        public virtual string Host { get; set; }
         
     }
 }

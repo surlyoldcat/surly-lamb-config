@@ -1,6 +1,6 @@
 namespace Surly.LambConfig
 {
-    public class LambdaEventConfigItem : NetworkConfigItem
+    public class LambdaEventMapping : ResourceMapping
     {
         public LambdaEventTypeEnum EventType { get; set; }
     }

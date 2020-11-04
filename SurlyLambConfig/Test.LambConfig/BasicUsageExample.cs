@@ -1,6 +1,6 @@
 using System;
-using System.Runtime.InteropServices;
 using Surly.LambConfig;
+
 using Xunit;
 
 namespace Test.LambConfig
@@ -11,16 +11,21 @@ namespace Test.LambConfig
         public void Test1()
         {
 #if DEBUG
-            
+
             var foo = new ConfigBuilder()
-                .WithAwsProfile("NALAB")
-                .UseLocalFile("bigoldconfigfile.json")
+                .WithAwsProfile("NADEV")
+                .WithAwsRegion("us-west-2")
+                .UseDynamoDB()
+                .WithSettingsOverride(SettingsKeys.ServiceName, "cyber-source")
+                .WithSettingsOverride(SettingsKeys.ServiceVersion, "2.0")
+                .WithSettingsOverride(SettingsKeys.NetworkConfigTable, "network-develop-ConfigTable-20567PXQ6W9W")
+                .WithSettingsOverride(SettingsKeys.ServiceRegistryTable, "network-develop-ServiceRegistry-15JZPD2909JLR")
+                .ExportFinalConfigTo("configOutput.json")
                 .Build();
 
             
 #else
             var foo = new ConfigBuilder()
-                            .WithDefaultAwsProfile()
                             .EnableCaching()
                             .UseDynamoDB()
                             .Build();
@@ -30,7 +35,7 @@ namespace Test.LambConfig
             var region = configDoc.Settings[SettingsKeys.Region];
             var source = configDoc.Settings[SettingsKeys.ConfigurationSource];
             
-            Assert.Equal("localfile", source);
+            Assert.False(string.IsNullOrEmpty(region));
         }
     }
 }

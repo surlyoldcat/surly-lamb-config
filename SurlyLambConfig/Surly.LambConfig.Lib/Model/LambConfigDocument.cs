@@ -10,41 +10,31 @@ namespace Surly.LambConfig
     /// </summary>
    public class LambConfigDocument
     {
-        public Dictionary<string, string> Settings { get; } = new Dictionary<string, string>();
-        public List<ServiceRegistryEntry> ServiceRegistryEntries { get; } = new List<ServiceRegistryEntry>();
-
-
-        public string ConfigSource
-        {
-            get
-            {
-                if (Settings.ContainsKey(SettingsKeys.ConfigurationSource))
-                    return Settings[SettingsKeys.ConfigurationSource];
-                else
-                    return null;
-            }
-            set { Settings[SettingsKeys.ConfigurationSource] = value; }
-
-        }
-
-        public string AwsProfile
-        {
-            get
-            {
-                if (Settings.ContainsKey(SettingsKeys.AwsProfile))
-                    return Settings[SettingsKeys.AwsProfile];
-                else
-                    return null;
-            }
-            set { Settings[SettingsKeys.AwsProfile] = value; }
-
-        }
+        public Dictionary<string, string> Settings { get; set; }
         
-        public Dictionary<string, NetworkConfigItem> DynamoTables { get; set; }
-        public Dictionary<string, LambdaConfigItem> Lambdas { get; set; }
+        public Dictionary<string, ResourceMapping> DynamoTables { get; set; }
+        public Dictionary<string, LambdaMapping> Lambdas { get; set; }
         public Dictionary<string, ElasticSearchDomainConfigItem> ElasticSearchDomains { get; set; }
-        public Dictionary<string, NetworkConfigItem> SNSTopics { get; set; }
-        public Dictionary<string, NetworkConfigItem> APIs { get; set; }
-        
+        public Dictionary<string, ResourceMapping> SNSTopics { get; set; }
+        public Dictionary<string, ResourceMapping> APIs { get; set; }
+        public Dictionary<string, ResourceMapping> S3Buckets { get; set; }
+        public Dictionary<string, ResourceMapping> KinesisStreams { get; set; }
+        public Dictionary<string, ResourceMapping> SQSs { get; set; }
+
+        // ServiceRegistry is a lot of data that seems to not be used. will
+        // implement a leaner solution if it turns out to be needed.
+        //public List<ServiceRegistryEntry> ServiceRegistryEntries { get; set; }
+        public LambConfigDocument()
+        {
+            Settings = new Dictionary<string, string>();
+            DynamoTables = new Dictionary<string, ResourceMapping>();
+            Lambdas = new Dictionary<string, LambdaMapping>();
+            ElasticSearchDomains = new Dictionary<string, ElasticSearchDomainConfigItem>();
+            SNSTopics = new Dictionary<string, ResourceMapping>();
+            APIs = new Dictionary<string, ResourceMapping>();
+            S3Buckets = new Dictionary<string, ResourceMapping>();
+            KinesisStreams = new Dictionary<string, ResourceMapping>();
+            SQSs = new Dictionary<string, ResourceMapping>();
+        }
     }
 }
