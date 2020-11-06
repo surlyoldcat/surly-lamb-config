@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -11,24 +12,24 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using Amazon.Runtime.CredentialManagement;
+using Surly.LambConfig.ConfigProviders.ProviderModel;
 
 
 namespace Surly.LambConfig.ConfigProviders
 {
     internal class DynamoDBProvider : IConfigProvider
     {
-        private readonly LambConfigDocument _configDoc;
+
+        private readonly Dictionary<string, string> _enVars;
         
-        public DynamoDBProvider(LambConfigDocument configDoc)
+        public DynamoDBProvider(Dictionary<string, string> environmentVariables)
         {
-            _configDoc = configDoc;
-            ImportEnvironmentVariables();
+            _enVars = environmentVariables;
         }
-        
-        public void UpdateConfig()
+
+        public  LambConfigDocument LoadConfig()
         {
-            ValidateSettings();
-            _configDoc.Settings[SettingsKeys.ConfigurationSource] = "dynamodb";
+            ValidateEnvironmentVariables();
             var client = CreateDynamoClient();
             DynamoDBContext dynamo = new DynamoDBContext(client);
             
@@ -39,106 +40,54 @@ namespace Surly.LambConfig.ConfigProviders
             //_configDoc.ServiceRegistryEntries = registryTask.Result.Select(r => (ServiceRegistryEntry) r).ToList();
             
             string configJson = networkConfigTask.Result.ConfigJson;
-            var parsedMappings = NetworkConfigTableParser.Parse(configJson);
+            var resources = NetworkConfigTableParser.Parse(configJson);
+            //todo what is the correct key for Elastic Search Domain? Domain or ServiceName?
+            return new LambConfigDocument
+            {
+                DynamoTables = resources.DynamoTables.ToImmutableDictionary(r => r.LogicalId, r => r),
+                APIs = resources.APIs.ToImmutableDictionary(r => r.LogicalId, r => r),
+                Lambdas = resources.Lambdas.ToImmutableDictionary(r => r.LogicalId, r => r),
+                ElasticSearchDomains = resources.ElasticSearchDomains.ToImmutableDictionary(r => r.ServiceName, r => r),
+                KinesisStreams = resources.KinesisStreams.ToImmutableDictionary(r => r.LogicalId, r => r),
+                S3Buckets = resources.S3Buckets.ToImmutableDictionary(r => r.LogicalId, r => r),
+                SQSs = resources.SQSs.ToImmutableDictionary(r => r.LogicalId, r => r),
+                SNSTopics = resources.SNSTopics.ToImmutableDictionary(r => r.LogicalId, r => r),
+                Settings = _enVars.ToImmutableDictionary()
+            };
             
-            _configDoc.Lambdas = parsedMappings.Lambdas
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-
-            _configDoc.DynamoTables = parsedMappings.DynamoTables
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-            
-            _configDoc.APIs = parsedMappings.APIs
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-
-            _configDoc.S3Buckets = parsedMappings.S3Buckets
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-
-            _configDoc.SNSTopics = parsedMappings.SNSTopics
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-
-            _configDoc.ElasticSearchDomains = parsedMappings.ElasticSearchDomains
-                .ToDictionary(es => es.ServiceName, es => es);
-            
-            _configDoc.KinesisStreams = parsedMappings.KinesisStreams
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-            
-            _configDoc.SQSs = parsedMappings.SQSs
-                .ToDictionary(rm => rm.LogicalId, rm => rm);
-
         }
 
         private AmazonDynamoDBClient CreateDynamoClient()
         {
-            var regEndpoint = RegionEndpoint.GetBySystemName(Region);
-            if (_configDoc.Settings.ContainsKey(SettingsKeys.AwsProfile))
+            var regEndpoint = RegionEndpoint.GetBySystemName(_enVars[ConfigKeys.AwsRegion]);
+            if (_enVars.ContainsKey(ConfigKeys.AwsProfile))
             {
-                var credentials = GetCredentials(_configDoc.Settings[SettingsKeys.AwsProfile]);
+                var credentials = GetCredentials(_enVars[ConfigKeys.AwsProfile]);
                 return new AmazonDynamoDBClient(credentials, regEndpoint);
             }
             return new AmazonDynamoDBClient(regEndpoint);
             
         }
         
-        private void ImportEnvironmentVariables()
-        {
-            //we will NOT overwrite any settings already set!
-            Action<string, string> addIfNotPresent = (key, val) =>
-            {
-                if (!_configDoc.Settings.ContainsKey(key))
-                    _configDoc.Settings.Add(key, val);
-            };
-            addIfNotPresent(SettingsKeys.Region, Environment.GetEnvironmentVariable(EnvironmentKeys.AwsRegion));
-            addIfNotPresent(SettingsKeys.ServiceName, Environment.GetEnvironmentVariable(EnvironmentKeys.ServiceName));
-            addIfNotPresent(SettingsKeys.ServiceVersion, Environment.GetEnvironmentVariable(EnvironmentKeys.ServiceVersion));
-            addIfNotPresent(SettingsKeys.ServiceRegistryTable, Environment.GetEnvironmentVariable(EnvironmentKeys.RegistryTable));
-            addIfNotPresent(SettingsKeys.NetworkConfigTable, Environment.GetEnvironmentVariable(EnvironmentKeys.NetworkConfigTable));
-            
-        }
+        
 
-        private void ValidateSettings()
+        private void ValidateEnvironmentVariables()
         {
             Action<string> validateKey = key =>
             {
-                if (string.IsNullOrEmpty(_configDoc.Settings[key]))
-                    throw new ApplicationException($"Missing DynamoDB setting: {key}");
+                if (string.IsNullOrEmpty(_enVars[key]))
+                    throw new ApplicationException($"Missing DynamoDB environment variable: {key}");
             };
 
-            validateKey(SettingsKeys.Region);
-            
-            validateKey(SettingsKeys.NetworkConfigTable);
-            validateKey(SettingsKeys.ServiceRegistryTable);
-            validateKey(SettingsKeys.ServiceName);
-            validateKey(SettingsKeys.ServiceVersion);
+            validateKey(ConfigKeys.AwsRegion);
+            validateKey(ConfigKeys.NetworkConfigTable);
+            validateKey(ConfigKeys.RegistryTable);
+            validateKey(ConfigKeys.ServiceName);
+            validateKey(ConfigKeys.ServiceVersion);
         }
         
         
-        private string Region
-        {
-            get { return _configDoc.Settings[SettingsKeys.Region] ; }
-        }
-
-        private string Table
-        {
-            get { return _configDoc.Settings[SettingsKeys.NetworkConfigTable]; }
-        }
-        
-        private string ServiceName
-        {
-            get { return _configDoc.Settings[SettingsKeys.ServiceName]; }
-        }
-        
-        private string ServiceVersion
-        {
-            get { return _configDoc.Settings[SettingsKeys.ServiceVersion]; }
-        }
-
-        private string ServiceRegistryTable
-        {
-            get { return _configDoc.Settings[SettingsKeys.ServiceRegistryTable]; }
-        }
-        
-
-
+       
       
 
         private static AWSCredentials GetCredentials(string profile)
@@ -153,14 +102,18 @@ namespace Surly.LambConfig.ConfigProviders
         
         private async Task<NetworkConfigDynamoItem> FetchNetworkConfig(DynamoDBContext context)
         {
+            string tableName = _enVars[ConfigKeys.NetworkConfigTable];
+            string serviceName = _enVars[ConfigKeys.ServiceName];
+            string version = _enVars[ConfigKeys.ServiceVersion];
             var config = new DynamoDBOperationConfig
             {
-                OverrideTableName = HttpUtility.HtmlEncode(Table)
+                OverrideTableName = HttpUtility.HtmlEncode(tableName)
             };
-            var entry = await context.LoadAsync<NetworkConfigDynamoItem>(ServiceName, ServiceVersion, config, CancellationToken.None);
+            var entry = await context.LoadAsync<NetworkConfigDynamoItem>(serviceName, version, config, CancellationToken.None);
             return entry;
         }
 
+        /*
         private async Task<IEnumerable<ServiceRegistryDynamoItem>> FetchServiceRegistry(DynamoDBContext context)
         {
             //TODO shouldn't this be filtered? do we always need the entire table?
@@ -173,7 +126,7 @@ namespace Surly.LambConfig.ConfigProviders
                 .GetRemainingAsync();
             return items;
         }
-        
+        */
         internal class NetworkConfigDynamoItem
         {
             [DynamoDBHashKey("service")] public string ServiceName { get; set; }

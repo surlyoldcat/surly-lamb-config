@@ -8,7 +8,7 @@ namespace Surly.LambConfig
     /// Config gets populated from ConfigBuilder. Note, the config document
     /// is treated as a singleton, and is readonly once initialized.
     /// </summary>
-    public static class LambConfiguration
+    public static class ConfigManager
     {
         private static object _lockObj = new object();
         private static LambConfigDocument _configDoc;

@@ -1,11 +1,7 @@
 namespace Surly.LambConfig.ConfigProviders
 {
-    internal interface IConfigCacheProvider : IConfigProvider
-    {
-        void WriteConfig();
-    }
-    
-    internal class FileCacheProvider : IConfigCacheProvider
+   
+    internal class FileCacheProvider
     {
         //why not use BSON for a little more efficiency
         public void UpdateConfig()

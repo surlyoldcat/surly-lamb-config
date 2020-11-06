@@ -1,21 +1,9 @@
 namespace Surly.LambConfig
 {
-    public static class SettingsKeys
-    {
-        public const string Region = "region";
-        public const string ConfigurationSource = "configsource";
-        public const string AwsProfile = "awsprofile";
-        
-        public const string NetworkConfigTable = "networkconfigtable";
-        public const string ServiceName = "servicename";
-        public const string ServiceVersion = "serviceversion";
-        public const string ServiceRegistryTable = "serviceregistrytable";
-        public const string LogStream = "kinesislogstream";
-
-    }
     
-    internal static class EnvironmentKeys
+    public static class ConfigKeys
     {
+        public const string AwsProfile = "awsprofile";
         public const string AwsRegion = "AWS_REGION";
         public const string NetworkConfigTable = "NETWORK_CONFIG_TABLE";
         public const string ServiceName = "SERVICE_NAME";

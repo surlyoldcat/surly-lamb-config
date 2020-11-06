@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using Surly.LambConfig.ConfigProviders.ProviderModel;
 
 namespace Surly.LambConfig.ConfigProviders
 {
@@ -11,10 +12,10 @@ namespace Surly.LambConfig.ConfigProviders
         internal static readonly string PHYSICAL = "physicalid";
         internal static readonly string LOGICAL = "logicalid";
         
-        public static ParseResult Parse(string networkConfigJson)
+        public static AwsResourceComposite Parse(string networkConfigJson)
         {
             JObject root = JObject.Parse(networkConfigJson);
-            ParseResult result = new ParseResult();
+            AwsResourceComposite result = new AwsResourceComposite();
             
             result.DynamoTables = ParseTables(root).ToList();
             result.APIs = ParseAPIs(root).ToList();
@@ -34,7 +35,7 @@ namespace Surly.LambConfig.ConfigProviders
             return result;
         }
         
-        private static ParseResult ParseLambdas(JObject configRoot)
+        private static AwsResourceComposite ParseLambdas(JObject configRoot)
         {
             Func<JToken, LambdaEventTypeEnum> parseEvType = tok =>
             {
@@ -57,8 +58,7 @@ namespace Surly.LambConfig.ConfigProviders
                 }
             };
             
-            //todo return a ParseResult, and fill in the 'events' S3, SQS, Kinesis resource in that.
-            var result = new ParseResult();
+            var result = new AwsResourceComposite();
             var lambdaTokens = (JArray) configRoot["lambda"] ?? new JArray();
             foreach (JToken lambdaToken in lambdaTokens)
             {
@@ -113,22 +113,21 @@ namespace Surly.LambConfig.ConfigProviders
 
         private static IEnumerable<ResourceMapping> ParseSQS(JObject configRoot)
         {
-            return Enumerable.Empty<ResourceMapping>();
+            JArray tables = (JArray) configRoot["sqs"] ?? new JArray();
+            return tables.Select(tok => CreateMapping(tok, ResourceMappingTypeEnum.SQS));
         }
         
         private static IEnumerable<ResourceMapping> ParseKinesis(JObject configRoot)
         {
-            return Enumerable.Empty<ResourceMapping>();
+            JArray tables = (JArray) configRoot["kinesis"] ?? new JArray();
+            return tables.Select(tok => CreateMapping(tok, ResourceMappingTypeEnum.Kinesis));
         }
 
         
         private static IEnumerable<ResourceMapping> ParseSnsTopics(JObject configRoot)
         {
-            
             JArray topics = (JArray) configRoot["sns_topics_published"] ?? new JArray();
             return topics.Select(tok => CreateMapping(tok, ResourceMappingTypeEnum.SNSTopic));
-
-
         }
         
         private static IEnumerable<ElasticSearchDomainConfigItem> ParseElasticSearchDomains(JObject configRoot)
@@ -190,20 +189,6 @@ namespace Surly.LambConfig.ConfigProviders
                 PhysicalId =  physicalId,
                 ResourceType = resourceType
             };
-        }
-
-       
-        
-        internal class ParseResult
-        {
-            public List<ResourceMapping> DynamoTables { get; set; } = new List<ResourceMapping>();
-            public List<LambdaMapping> Lambdas { get; set; } = new List<LambdaMapping>();
-            public List<ElasticSearchDomainConfigItem> ElasticSearchDomains { get; set; } = new List<ElasticSearchDomainConfigItem>();
-            public List<ResourceMapping> SNSTopics { get; set; } = new List<ResourceMapping>();
-            public List<ResourceMapping> APIs { get; set; } = new List<ResourceMapping>();
-            public List<ResourceMapping> S3Buckets { get; set; } = new List<ResourceMapping>();
-            public List<ResourceMapping> KinesisStreams { get; set; } = new List<ResourceMapping>();
-            public List<ResourceMapping> SQSs { get; set; } = new List<ResourceMapping>();
         }
     }
     

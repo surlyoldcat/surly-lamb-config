@@ -15,11 +15,9 @@ namespace Test.LambConfig
             var foo = new ConfigBuilder()
                 .WithAwsProfile("NADEV")
                 .WithAwsRegion("us-west-2")
-                .UseDynamoDB()
-                .WithSettingsOverride(SettingsKeys.ServiceName, "cyber-source")
-                .WithSettingsOverride(SettingsKeys.ServiceVersion, "2.0")
-                .WithSettingsOverride(SettingsKeys.NetworkConfigTable, "network-develop-ConfigTable-20567PXQ6W9W")
-                .WithSettingsOverride(SettingsKeys.ServiceRegistryTable, "network-develop-ServiceRegistry-15JZPD2909JLR")
+                .WithSettingsOverride(ConfigKeys.ServiceName, "cyber-source")
+                .WithSettingsOverride(ConfigKeys.ServiceVersion, "2.0")
+                .WithSettingsOverride(ConfigKeys.NetworkConfigTable, "network-develop-ConfigTable-20567PXQ6W9W")
                 .ExportFinalConfigTo("configOutput.json")
                 .Build();
 
@@ -31,9 +29,8 @@ namespace Test.LambConfig
                             .Build();
 #endif
 
-            var configDoc = LambConfiguration.Config;
-            var region = configDoc.Settings[SettingsKeys.Region];
-            var source = configDoc.Settings[SettingsKeys.ConfigurationSource];
+            var configDoc = ConfigManager.Config;
+            var region = configDoc.Settings[ConfigKeys.AwsRegion];
             
             Assert.False(string.IsNullOrEmpty(region));
         }
