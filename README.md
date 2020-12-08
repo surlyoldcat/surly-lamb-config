@@ -1,4 +1,6 @@
 # surly-lamb-config
+![lamb](./lamm.png)
+
 a **rough** sketch of alternative configuration and logging for Lambdas. there are a few primary features:
 - using Serilog to provide unified, structured logging to multiple destinations (Cloudwatch and Kinesis (Splunk))
 - unified configuration- environment vars, custom settings, and items from the 2 DynamoDB "config" tables
