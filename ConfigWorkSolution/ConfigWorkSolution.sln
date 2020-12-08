@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "src\HelloWorld\HelloWorld.csproj", "{9855FED1-511D-4F48-9092-B61765B7218A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52ABD285-6A4E-4FB7-A077-7D72C5505BE7}"
+ProjectSection(SolutionItems) = preProject
+	omnisharp.json = omnisharp.json
+	template.yaml = template.yaml
+	README.md = README.md
+	.gitignore = .gitignore
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.LambdaPlumbing", "Test.LambdaPlumbing\Test.LambdaPlumbing.csproj", "{68187528-345B-4889-AC41-BE325F56659A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eti.LambdaPlumbing.Lib", "Eti.LambdaPlumbing.Lib\Eti.LambdaPlumbing.Lib.csproj", "{C5A170D4-9C06-4178-BD32-D6DDF55FD63E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9855FED1-511D-4F48-9092-B61765B7218A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9855FED1-511D-4F48-9092-B61765B7218A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9855FED1-511D-4F48-9092-B61765B7218A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9855FED1-511D-4F48-9092-B61765B7218A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68187528-345B-4889-AC41-BE325F56659A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68187528-345B-4889-AC41-BE325F56659A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68187528-345B-4889-AC41-BE325F56659A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68187528-345B-4889-AC41-BE325F56659A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A170D4-9C06-4178-BD32-D6DDF55FD63E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A170D4-9C06-4178-BD32-D6DDF55FD63E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A170D4-9C06-4178-BD32-D6DDF55FD63E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A170D4-9C06-4178-BD32-D6DDF55FD63E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
